@@ -54,6 +54,7 @@ import org.amahi.anywhere.adapter.NavigationDrawerAdapter;
 import org.amahi.anywhere.adapter.ServersAdapter;
 import org.amahi.anywhere.bus.AppsSelectedEvent;
 import org.amahi.anywhere.bus.BusProvider;
+import org.amahi.anywhere.bus.NonAdminUsersSelectedEvent;
 import org.amahi.anywhere.bus.ServerConnectedEvent;
 import org.amahi.anywhere.bus.ServerConnectionChangedEvent;
 import org.amahi.anywhere.bus.ServersLoadFailedEvent;
@@ -377,6 +378,8 @@ public class NavigationFragment extends Fragment implements AccountManagerCallba
 						BusProvider.getBus().post(new AppsSelectedEvent());
 						break;
 
+					case NavigationDrawerAdapter.NavigationItems.NON_ADMIN_USERS:
+						BusProvider.getBus().post(new NonAdminUsersSelectedEvent());
 					default:
 						break;
 				}

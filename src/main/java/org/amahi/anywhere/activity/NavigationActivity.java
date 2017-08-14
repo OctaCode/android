@@ -40,6 +40,7 @@ import org.amahi.anywhere.R;
 import org.amahi.anywhere.bus.AppSelectedEvent;
 import org.amahi.anywhere.bus.AppsSelectedEvent;
 import org.amahi.anywhere.bus.BusProvider;
+import org.amahi.anywhere.bus.NonAdminUsersSelectedEvent;
 import org.amahi.anywhere.bus.SettingsSelectedEvent;
 import org.amahi.anywhere.bus.ShareSelectedEvent;
 import org.amahi.anywhere.bus.SharesSelectedEvent;
@@ -47,7 +48,6 @@ import org.amahi.anywhere.server.client.ServerClient;
 import org.amahi.anywhere.server.model.ServerApp;
 import org.amahi.anywhere.server.model.ServerShare;
 import org.amahi.anywhere.tv.activity.IntroActivity;
-import org.amahi.anywhere.tv.activity.MainTVActivity;
 import org.amahi.anywhere.util.Android;
 import org.amahi.anywhere.util.CheckTV;
 import org.amahi.anywhere.util.Fragments;
@@ -310,6 +310,28 @@ public class NavigationActivity extends AppCompatActivity implements DrawerLayou
 
     private Fragment buildAppsFragment() {
         return Fragments.Builder.buildServerAppsFragment();
+    }
+
+    @Subscribe
+    public void onNonAdminUsersSelected(NonAdminUsersSelectedEvent event){
+        this.navigationTitle = getString(R.string.title_non_admin_users);
+        if (isNavigationDrawerAvailable()) {
+            setUpTitle();
+        }
+
+        setUpNonAdminUsers();
+
+        if (isNavigationDrawerAvailable()) {
+            hideNavigationDrawer();
+        }
+    }
+
+    private void setUpNonAdminUsers() {
+        Fragments.Operator.at(this).replace(buildNonAdminUsersFragment(), R.id.container_content);
+    }
+
+    private Fragment buildNonAdminUsersFragment() {
+        return Fragments.Builder.buildNonAdminUsersFragment();
     }
 
     @Subscribe

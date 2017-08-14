@@ -26,17 +26,19 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
         public static final int SHARES = 0;
         public static final int APPS = 1;
+        public static final int NON_ADMIN_USERS = 2;
+        public static final int NO_VALUE = 3;
     }
 
     private final List<Integer> navigationItems;
     private Context mContext;
 
     public static NavigationDrawerAdapter newLocalAdapter(Context context) {
-        return new NavigationDrawerAdapter(context, Arrays.asList(NavigationDrawerAdapter.NavigationItems.SHARES, NavigationDrawerAdapter.NavigationItems.APPS));
+        return new NavigationDrawerAdapter(context, Arrays.asList(NavigationItems.SHARES, NavigationItems.APPS, NavigationItems.NON_ADMIN_USERS, NavigationItems.NO_VALUE));
     }
 
     public static NavigationDrawerAdapter newRemoteAdapter(Context context) {
-        return new NavigationDrawerAdapter(context, Arrays.asList(NavigationDrawerAdapter.NavigationItems.SHARES));
+        return new NavigationDrawerAdapter(context, Arrays.asList(NavigationItems.SHARES, NavigationItems.NON_ADMIN_USERS, NavigationItems.NO_VALUE));
     }
 
     public NavigationDrawerAdapter(Context context, List<Integer> navigationItems){
@@ -60,6 +62,9 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     @Override
     public void onBindViewHolder(NavigationDrawerViewHolder holder, int position) {
         holder.titleShare.setText(getNavigationName(mContext,position));
+        if(getNavigationName(mContext,position).matches("")){
+            holder.titleShare.setClickable(false);
+        }
     }
 
     @Override
@@ -75,6 +80,11 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
             case NavigationDrawerAdapter.NavigationItems.APPS:
                 return context.getString(R.string.title_apps);
 
+            case NavigationDrawerAdapter.NavigationItems.NON_ADMIN_USERS:
+                return context.getString(R.string.title_non_admin_users);
+
+            case NavigationItems.NO_VALUE:
+                return "";
             default:
                 return null;
         }

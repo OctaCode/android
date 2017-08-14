@@ -24,6 +24,7 @@
     <string name="title_apps">Apps</string>
     <string name="title_settings">Settings</string>
     <string name="title_shares">Shares</string>
+    <string name="title_non_admin_users">Non admin users</string>
 
     <string name="button_search_application">Search Google Play</string>
     <string name="button_sign_in">Sign in</string>

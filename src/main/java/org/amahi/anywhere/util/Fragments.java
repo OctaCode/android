@@ -25,6 +25,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import org.amahi.anywhere.fragment.NavigationFragment;
+import org.amahi.anywhere.fragment.NonAdminUserFragment;
 import org.amahi.anywhere.fragment.ServerAppsFragment;
 import org.amahi.anywhere.fragment.ServerFileImageFragment;
 import org.amahi.anywhere.fragment.ServerFilesFragment;
@@ -65,6 +66,10 @@ public final class Fragments {
 
         public static Fragment buildServerAppsFragment() {
             return new ServerAppsFragment();
+        }
+
+        public static Fragment buildNonAdminUsersFragment() {
+            return new NonAdminUserFragment();
         }
 
         public static Fragment buildServerFilesFragment(ServerShare share, ServerFile directory) {
