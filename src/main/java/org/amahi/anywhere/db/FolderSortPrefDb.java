@@ -8,20 +8,20 @@ import static org.amahi.anywhere.db.DbModel.DATABASE_NAME;
 import static org.amahi.anywhere.db.DbModel.DATABASE_VERSION;
 
 /**
- * SQLite db for maintaining image uploads in a persistent database.
- * Query methods managed by {@link UploadQueueDbHelper UploadQueueDbHelper}.
+ * SQLite db for maintaining sorting preference in a persistent database.
+ * Query methods managed by {@link FolderSortPrefDbHelper FolderSortPrefDbHelper}.
  */
 
-class UploadQueueDb extends SQLiteOpenHelper {
-
-    // Table name
-    static final String TABLE_NAME = "UPLOAD_QUEUE_TABLE";
+public class FolderSortPrefDb extends SQLiteOpenHelper {
 
     // column names
     static final String KEY_ID = "id";
-    static final String KEY_FILE_PATH = "file_path";
+    static final String KEY_FOLDER_PATH = "file_path";
 
-    UploadQueueDb(Context context) {
+    // Table name
+    static final String TABLE_NAME = "FOLDER_SORT_PREF_TABLE";
+
+    public FolderSortPrefDb(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -29,13 +29,13 @@ class UploadQueueDb extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + KEY_FILE_PATH + " VARCHAR(200) NOT NULL)";
+                + KEY_FOLDER_PATH + " VARCHAR(200) NOT NULL)";
 
         db.execSQL(CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    }
 
+    }
 }
