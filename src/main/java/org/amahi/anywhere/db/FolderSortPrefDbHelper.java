@@ -24,10 +24,10 @@ public class FolderSortPrefDbHelper {
         sqLiteDatabase = folderSortPrefDb.getWritableDatabase();
     }
 
-    public boolean addNewSortPref(String filePath) {
+    public boolean addNewSortPref(String filePath, String sortPref) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(FolderSortPrefDb.KEY_FOLDER_PATH, filePath);
-
+        contentValues.put(FolderSortPrefDb.KEY_SORT_PREF, sortPref);
         int id = (int) sqLiteDatabase.insert(FolderSortPrefDb.TABLE_NAME, null, contentValues);
         return id != -1;
     }

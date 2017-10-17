@@ -24,6 +24,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -69,6 +70,8 @@ import org.amahi.anywhere.bus.ServerFileDeleteEvent;
 import org.amahi.anywhere.bus.ServerFileSharingEvent;
 import org.amahi.anywhere.bus.ServerFilesLoadFailedEvent;
 import org.amahi.anywhere.bus.ServerFilesLoadedEvent;
+import org.amahi.anywhere.db.FolderSortPrefDb;
+import org.amahi.anywhere.db.FolderSortPrefDbHelper;
 import org.amahi.anywhere.server.client.ServerClient;
 import org.amahi.anywhere.server.model.ServerFile;
 import org.amahi.anywhere.server.model.ServerShare;
@@ -635,11 +638,12 @@ public class ServerFilesFragment extends Fragment implements
 				menu, R.id.media_route_menu_item);
 	}
 
-	@Override
+	private FolderSortPrefDbHelper folderSortPrefDbHelper;
+    @Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
-
-		setUpFilesContentSortIcon(menu.findItem(R.id.menu_sort));
+        folderSortPrefDbHelper = FolderSortPrefDbHelper.init(getContext());
+        setUpFilesContentSortIcon(menu.findItem(R.id.menu_sort));
 		searchMenuItem = menu.findItem(R.id.menu_search);
 		searchView = (SearchView) searchMenuItem.getActionView();
 
@@ -687,6 +691,11 @@ public class ServerFilesFragment extends Fragment implements
 			case R.id.menu_sort:
 				setUpFilesContentSortSwitched();
 				setUpFilesContentSortIcon(menuItem);
+                boolean value = false;
+                if(filesSort == FilesSort.NAME)
+                    value = true;
+                if(getDirectory() != null)
+                    folderSortPrefDbHelper.addNewSortPref(getDirectory().getPath(), String.valueOf(value));
 				return true;
 			default:
 				return super.onOptionsItemSelected(menuItem);

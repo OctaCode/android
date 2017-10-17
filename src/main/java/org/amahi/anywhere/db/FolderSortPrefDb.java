@@ -17,6 +17,7 @@ public class FolderSortPrefDb extends SQLiteOpenHelper {
     // column names
     static final String KEY_ID = "id";
     static final String KEY_FOLDER_PATH = "file_path";
+    static final String KEY_SORT_PREF = "folder_pref";
 
     // Table name
     static final String TABLE_NAME = "FOLDER_SORT_PREF_TABLE";
@@ -29,6 +30,7 @@ public class FolderSortPrefDb extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_SORT_PREF + " VARCHAR(5) NOT NULL, "
                 + KEY_FOLDER_PATH + " VARCHAR(200) NOT NULL)";
 
         db.execSQL(CREATE_TABLE);
